@@ -1,0 +1,15 @@
+F:\AtturraInterviewAssignment\BreakdownOfSalary\bin\Debug\net7.0\BreakdownOfSalary.exe
+F:\AtturraInterviewAssignment\BreakdownOfSalary\bin\Debug\net7.0\BreakdownOfSalary.deps.json
+F:\AtturraInterviewAssignment\BreakdownOfSalary\bin\Debug\net7.0\BreakdownOfSalary.runtimeconfig.json
+F:\AtturraInterviewAssignment\BreakdownOfSalary\bin\Debug\net7.0\BreakdownOfSalary.dll
+F:\AtturraInterviewAssignment\BreakdownOfSalary\bin\Debug\net7.0\BreakdownOfSalary.pdb
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.csproj.AssemblyReference.cache
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.GeneratedMSBuildEditorConfig.editorconfig
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.AssemblyInfoInputs.cache
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.AssemblyInfo.cs
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.csproj.CoreCompileInputs.cache
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.dll
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\refint\BreakdownOfSalary.dll
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.pdb
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\BreakdownOfSalary.genruntimeconfig.cache
+F:\AtturraInterviewAssignment\BreakdownOfSalary\obj\Debug\net7.0\ref\BreakdownOfSalary.dll
