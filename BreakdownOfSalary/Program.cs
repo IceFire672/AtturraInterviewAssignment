@@ -31,7 +31,7 @@ namespace BreakdownOfSalary
             int netIncome = CalculateNetIncome(salaryPackage, superannuation, medicareLevy, budgetRepairLevy, incomeTax);
             Console.WriteLine("Net income: " + string.Format("{0:C}", netIncome));
             decimal payPacketAmount = CalculatePayPacketAmount(paymentFrequency, netIncome);
-            Console.WriteLine("Pay packet: " + string.Format("{0:C}", payPacketAmount));
+            Console.WriteLine("Pay packet: " + string.Format("{0:C}", payPacketAmount) + PayPacketAmountFrequency(paymentFrequency));
 
             Console.WriteLine(" ");
             Console.WriteLine("Press any key to end...");
@@ -60,6 +60,7 @@ namespace BreakdownOfSalary
             while (true)
             {
                 Console.Write("Enter payment frequency (W for weekly, F for fortnightly, M for monthly): ");
+                
                 paymentFrequency = Console.ReadLine();
 
                 if(paymentFrequency != null)
@@ -69,11 +70,15 @@ namespace BreakdownOfSalary
                     {
                         return paymentFrequency;
                     }
-                    Console.WriteLine("Invalid input.");
+                    else 
+                    {
+                        Console.WriteLine("Invalid input.");
+                    }
+                    
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input cannot be null.");
+                    throw new Exception("Invalid input cannot be null.");
                 }
             }
         } // end of GetPaymentFrequency() method
@@ -164,6 +169,7 @@ namespace BreakdownOfSalary
 
         public static decimal CalculatePayPacketAmount(string paymentFrequency, int netIncome)
         {
+            
             decimal payPacketAmount = 0;
             int payPeriodsPerYear = 0;
             if (paymentFrequency == "w")
@@ -189,6 +195,25 @@ namespace BreakdownOfSalary
             return payPacketAmount;
 
         }// end of CalculatePayPacketAmount() method
+
+        public static string PayPacketAmountFrequency(string paymentFrequency)
+        {
+            if (paymentFrequency == "w") 
+            {
+                paymentFrequency = " per week";
+                return paymentFrequency;
+            } 
+            else if (paymentFrequency == "f") 
+            {
+                paymentFrequency = " per fortnight";
+                return paymentFrequency;
+            } 
+            else 
+            {
+                paymentFrequency = " per month";
+                return paymentFrequency;
+            }
+        }// end of PayPacketAmountFrequency() method
 
     } //end of class 
 }
