@@ -15,7 +15,7 @@ The application uses different methods for each salary breakdown. This means tha
 
 
 
-The following is a screenshot of the code running using the same inputs used in the example given in the assignment. The reason why the results are different by a few cents is because the instructions stated to round up to the nearest dollar in some but nearest cent in others.
+The following is a screenshot of the code running using the same inputs used in the example given in the assignment. 
 
 (see screenshot)
 ![Dujour's version of the expected answer](ScreenshotsFolder/ExampleOutput.PNG "Dujour's version of the expected answer")
