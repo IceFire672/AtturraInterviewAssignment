@@ -2,21 +2,30 @@
 
 namespace BreakdownOfSalary
 {
-    class Program
+    static class SalaryBreakdown
     {
+        private const int MEDICARE_LEVY_THRESHOLD = 21335;
+        private const int MEDICARE_LEVY_MAX = 26668;
+        private const int BUDGET_REPAIR_LEVY_THRESHOLD = 180000;
+        private const decimal BUDGET_REPAIR_LEVY_RATE = 0.02m;
+        private const decimal MEDICARE_LEVY_MID_RATE = 0.1m;
+        private const decimal MEDICARE_LEVY_MAX_RATE = 0.02m;
+
         static void Main(string[] args)
         {
-
             Console.WriteLine(" ");
             int salaryPackage = GetSalaryPackage();
             string paymentFrequency = GetPaymentFrequency();
+
+            Console.WriteLine(" ");
             Console.WriteLine("Gross package: " + string.Format("{0:C}", salaryPackage));
             decimal superannuation = CalculateSuperannuation(salaryPackage);
             Console.WriteLine("Superannuation: " + string.Format("{0:C}", superannuation));
 
             Console.WriteLine(" ");
-            int taxableIncome = CalculateTaxableIncome(salaryPackage, superannuation);
+            decimal taxableIncome = CalculateTaxableIncome(salaryPackage, superannuation);
             Console.WriteLine("Taxable Income: " + string.Format("{0:C}", taxableIncome));
+            taxableIncome = Math.Floor(taxableIncome);
 
             Console.WriteLine(" ");
             Console.WriteLine("Deductions: ");
@@ -24,11 +33,11 @@ namespace BreakdownOfSalary
             Console.WriteLine("Medicare Levy: " + string.Format("{0:C}", medicareLevy));
             int budgetRepairLevy = CalculateBudgetRepairLevy(taxableIncome);
             Console.WriteLine("Budget Repair Levy: " + string.Format("{0:C}", budgetRepairLevy));
-            int incomeTax = CalculateIncomeTax(taxableIncome);
+            decimal incomeTax = CalculateIncomeTax(taxableIncome);
             Console.WriteLine("Income Tax: " + string.Format("{0:C}", incomeTax));
 
             Console.WriteLine(" ");
-            int netIncome = CalculateNetIncome(salaryPackage, superannuation, medicareLevy, budgetRepairLevy, incomeTax);
+            decimal netIncome = CalculateNetIncome(salaryPackage, superannuation, medicareLevy, budgetRepairLevy, incomeTax);
             Console.WriteLine("Net income: " + string.Format("{0:C}", netIncome));
             decimal payPacketAmount = CalculatePayPacketAmount(paymentFrequency, netIncome);
             Console.WriteLine("Pay packet: " + string.Format("{0:C}", payPacketAmount) + PayPacketAmountFrequency(paymentFrequency));
@@ -36,7 +45,7 @@ namespace BreakdownOfSalary
             Console.WriteLine(" ");
             Console.WriteLine("Press any key to end...");
             Console.ReadKey();
-
+            
         }
 
         static int GetSalaryPackage()
@@ -53,10 +62,10 @@ namespace BreakdownOfSalary
             }
         } // end of GetSalaryPackage() method
 
-
         static string GetPaymentFrequency()
         {
-            string paymentFrequency;
+            string? paymentFrequency;
+            
             while (true)
             {
                 Console.Write("Enter payment frequency (W for weekly, F for fortnightly, M for monthly): ");
@@ -73,8 +82,7 @@ namespace BreakdownOfSalary
                     else 
                     {
                         Console.WriteLine("Invalid input.");
-                    }
-                    
+                    }   
                 }
                 else
                 {
@@ -92,82 +100,81 @@ namespace BreakdownOfSalary
     
         } // end of CalculateSuperannuation() method
 
-        public static int CalculateTaxableIncome(int salaryPackage, decimal superannuation)
+        public static decimal CalculateTaxableIncome(int salaryPackage, decimal superannuation)
         {
             decimal taxableIncome = salaryPackage - superannuation;
-            taxableIncome = Math.Floor(taxableIncome);
-            return (int)taxableIncome;
+            return taxableIncome;
         }// end of CalculateTaxableIncome() method
 
-        public static int CalculateMedicareLevy(int taxableIncome)
+        public static int CalculateMedicareLevy(decimal taxableIncome)
         {
             int medicareLevy;
-            if (taxableIncome <= 21335)
+            if (taxableIncome <= MEDICARE_LEVY_THRESHOLD)
             {
                 medicareLevy = 0;
             }
-            else if (taxableIncome <= 26668)
+            else if (taxableIncome <= MEDICARE_LEVY_MAX)
             {
-                medicareLevy = (int)Math.Ceiling((taxableIncome - 21335) * 0.1m);
+                medicareLevy = (int)Math.Ceiling((taxableIncome - MEDICARE_LEVY_THRESHOLD) * MEDICARE_LEVY_MID_RATE);
             }
             else
             {
-                medicareLevy = (int)Math.Ceiling(taxableIncome * 0.02m);
+                medicareLevy = (int)Math.Ceiling(taxableIncome * MEDICARE_LEVY_MAX_RATE);
             }
             return medicareLevy;
 
         }// end of CalculateMedicareLevy() method
 
-        public static int CalculateBudgetRepairLevy(int taxableIncome)
+        public static int CalculateBudgetRepairLevy(decimal taxableIncome)
         {
             int budgetRepairLevy;
-            if (taxableIncome <= 180000)
+            if (taxableIncome <= BUDGET_REPAIR_LEVY_THRESHOLD)
             {
                 budgetRepairLevy = 0;
             }
             else
             {
-                budgetRepairLevy = (int)Math.Ceiling((taxableIncome - 180000) * 0.02m);
+                budgetRepairLevy = (int)Math.Ceiling((taxableIncome - BUDGET_REPAIR_LEVY_THRESHOLD) * BUDGET_REPAIR_LEVY_RATE);
             }
             return budgetRepairLevy;
             
         }// end of CalculateBudgetRepairLevy() method
 
-        public static int CalculateIncomeTax(int taxableIncome)
+        public static decimal CalculateIncomeTax(decimal taxableIncome)
         {
-            int incomeTax;
+            decimal incomeTax;
             if (taxableIncome <= 18200)
             {
                 incomeTax = 0;
             }
             else if (taxableIncome <= 37000)
             {
-                incomeTax = (int)Math.Ceiling((taxableIncome - 18200) * 0.19m);
+                incomeTax = Math.Ceiling((taxableIncome - 18200) * 0.19m);
             }
             else if (taxableIncome <= 87000)
             {
-                incomeTax = (int)Math.Ceiling(3572 + (taxableIncome - 37000) * 0.325m);
+                incomeTax = Math.Ceiling(3572 + (taxableIncome - 37000) * 0.325m);
             }
             else if (taxableIncome <= 180000)
             {
-                incomeTax = (int)Math.Ceiling(19822 + (taxableIncome - 87000) * 0.37m);
+                incomeTax = Math.Ceiling(19822 + (taxableIncome - 87000) * 0.37m);
             }
             else
             {
-                incomeTax = (int)Math.Ceiling(54232 + (taxableIncome - 180000) * 0.47m);
+                incomeTax = Math.Ceiling(54232 + (taxableIncome - 180000) * 0.47m);
             }
             return incomeTax;
 
         }// end of CalculateIncomeTax() method
 
-        public static int CalculateNetIncome(int grossPackage, decimal superannuationContribution, int medicareLevy, int budgetRepairLevy, int incomeTax)
+        public static decimal CalculateNetIncome(int grossPackage, decimal superannuationContribution, int medicareLevy, int budgetRepairLevy, decimal incomeTax)
         {
-            int netIncome = grossPackage - (int)superannuationContribution - medicareLevy - budgetRepairLevy - incomeTax;
+            decimal netIncome = grossPackage - superannuationContribution - medicareLevy - budgetRepairLevy - incomeTax;
             return netIncome;
 
         } // end of CalculateNetIncome() method
 
-        public static decimal CalculatePayPacketAmount(string paymentFrequency, int netIncome)
+        public static decimal CalculatePayPacketAmount(string paymentFrequency, decimal netIncome)
         {
             
             decimal payPacketAmount = 0;
@@ -190,7 +197,7 @@ namespace BreakdownOfSalary
                 return payPacketAmount;
             }
 
-            payPacketAmount = (decimal)netIncome / payPeriodsPerYear;
+            payPacketAmount = netIncome / payPeriodsPerYear;
             payPacketAmount = Math.Ceiling(payPacketAmount * 100) / 100;
             return payPacketAmount;
 
