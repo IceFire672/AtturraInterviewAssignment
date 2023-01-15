@@ -18,4 +18,4 @@ The application uses different methods for each salary breakdown. This means tha
 The following is a screenshot of the code running using the same inputs used in the example given in the assignment. 
 
 (see screenshot)
-![Dujour's version of the expected answer](ScreenshotsFolder/ExampleOutput.PNG "Dujour's version of the expected answer")
+![Dujour's version of the expected answer](ScreenshotsFolder/ExampleOutputCorrect.PNG "Dujour's version of the expected answer")
